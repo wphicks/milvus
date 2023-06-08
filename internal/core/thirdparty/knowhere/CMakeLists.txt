@@ -11,7 +11,7 @@
 # or implied. See the License for the specific language governing permissions and limitations under the License.
 #-------------------------------------------------------------------------------
 
-set( KNOWHERE_VERSION 3f6563b )
+set( KNOWHERE_VERSION bug-gpu_filter )
 
 message(STATUS "Building knowhere-${KNOWHERE_SOURCE_VER} from source")
 message(STATUS ${CMAKE_BUILD_TYPE})
@@ -23,6 +23,7 @@ else ()
 endif ()
 
 if ( MILVUS_GPU_VERSION STREQUAL "ON" )
+    set(USE_CUDA ON CACHE BOOL "" FORCE )
     set(WITH_RAFT ON CACHE BOOL "" FORCE )
 endif ()
 
@@ -30,7 +31,7 @@ endif ()
 set( CMAKE_PREFIX_PATH ${CONAN_BOOST_ROOT} )
 FetchContent_Declare(
         knowhere
-        GIT_REPOSITORY  "https://github.com/milvus-io/knowhere.git"
+        GIT_REPOSITORY  "https://github.com/wphicks/knowhere.git"
         GIT_TAG         ${KNOWHERE_VERSION}
         SOURCE_DIR      ${CMAKE_CURRENT_BINARY_DIR}/knowhere-src
         BINARY_DIR      ${CMAKE_CURRENT_BINARY_DIR}/knowhere-build
