@@ -24,7 +24,7 @@ import (
 
 	"github.com/cockroachdb/errors"
 
-	"github.com/milvus-io/milvus-proto/go-api/schemapb"
+	"github.com/milvus-io/milvus-proto/go-api/v2/schemapb"
 	"github.com/milvus-io/milvus/pkg/common"
 	"github.com/milvus-io/milvus/pkg/util/typeutil"
 )
@@ -213,7 +213,7 @@ func newDescriptorEvent() *descriptorEvent {
 }
 
 func newInsertEventWriter(dataType schemapb.DataType, dim ...int) (*insertEventWriter, error) {
-	var payloadWriter *PayloadWriter
+	var payloadWriter PayloadWriterInterface
 	var err error
 	if typeutil.IsVectorType(dataType) {
 		if len(dim) != 1 {

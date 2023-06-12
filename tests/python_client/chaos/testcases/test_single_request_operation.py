@@ -3,7 +3,7 @@ from time import sleep
 from pymilvus import connections
 from chaos.checker import (CreateChecker,
                            InsertChecker,
-                           FlushChecker, 
+                           FlushChecker,
                            SearchChecker,
                            QueryChecker,
                            IndexChecker,
@@ -16,6 +16,7 @@ from common.common_type import CaseLabel
 from chaos.chaos_commons import assert_statistic
 from chaos import constants
 from delayed_assert import assert_expectations
+
 
 class TestBase:
     expect_create = constants.SUCC
@@ -45,7 +46,7 @@ class TestOperations(TestBase):
         self.host = host
         self.port = port
         self.user = user
-        self.password = password        
+        self.password = password
 
     def init_health_checkers(self, collection_name=None):
         c_name = collection_name
@@ -57,7 +58,7 @@ class TestOperations(TestBase):
             Op.search: SearchChecker(collection_name=c_name),
             Op.query: QueryChecker(collection_name=c_name),
             Op.delete: DeleteChecker(collection_name=c_name),
-            Op.drop:DropChecker(collection_name=c_name)
+            Op.drop: DropChecker(collection_name=c_name)
         }
         self.health_checkers = checkers
 
@@ -71,13 +72,13 @@ class TestOperations(TestBase):
         cc.start_monitor_threads(self.health_checkers)
         log.info("*********************Load Start**********************")
         # wait request_duration
-        request_duration = request_duration.replace("h","*3600+").replace("m","*60+").replace("s","")
+        request_duration = request_duration.replace("h", "*3600+").replace("m", "*60+").replace("s", "")
         if request_duration[-1] == "+":
             request_duration = request_duration[:-1]
         request_duration = eval(request_duration)
         for i in range(10):
-            sleep(request_duration//10)
-            for k,v in self.health_checkers.items():
+            sleep(request_duration // 10)
+            for k, v in self.health_checkers.items():
                 v.check_result()
         if is_check:
             assert_statistic(self.health_checkers, succ_rate_threshold=0.98)

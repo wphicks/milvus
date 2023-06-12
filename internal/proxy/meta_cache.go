@@ -36,9 +36,9 @@ import (
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 
-	"github.com/milvus-io/milvus-proto/go-api/commonpb"
-	"github.com/milvus-io/milvus-proto/go-api/milvuspb"
-	"github.com/milvus-io/milvus-proto/go-api/schemapb"
+	"github.com/milvus-io/milvus-proto/go-api/v2/commonpb"
+	"github.com/milvus-io/milvus-proto/go-api/v2/milvuspb"
+	"github.com/milvus-io/milvus-proto/go-api/v2/schemapb"
 	"github.com/milvus-io/milvus/internal/proto/internalpb"
 	"github.com/milvus-io/milvus/internal/proto/querypb"
 	"github.com/milvus-io/milvus/internal/proto/rootcoordpb"
@@ -384,9 +384,7 @@ func (m *MetaCache) GetPartitions(ctx context.Context, collectionName string) (m
 	metrics.ProxyCacheStatsCounter.WithLabelValues(strconv.FormatInt(paramtable.GetNodeID(), 10), "GetPartitions", metrics.CacheHitLabel).Inc()
 
 	ret := make(map[string]typeutil.UniqueID)
-	m.mu.RLock()
-	defer m.mu.RUnlock()
-	partInfo := m.collInfo[collectionName].partInfo
+	partInfo := collInfo.partInfo
 	for k, v := range partInfo {
 		ret[k] = v.partitionID
 	}

@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/antlr/antlr4/runtime/Go/antlr"
-	"github.com/milvus-io/milvus-proto/go-api/schemapb"
+	"github.com/milvus-io/milvus-proto/go-api/v2/schemapb"
 	"github.com/milvus-io/milvus/internal/proto/planpb"
 	"github.com/milvus-io/milvus/pkg/log"
 	"github.com/milvus-io/milvus/pkg/util/typeutil"
@@ -117,10 +117,12 @@ func CreateSearchPlan(schemaPb *schemapb.CollectionSchema, exprStr string, vecto
 
 	expr, err := ParseExpr(schema, exprStr)
 	if err != nil {
+		log.Info("CreateSearchPlan failed", zap.Error(err))
 		return nil, err
 	}
 	vectorField, err := schema.GetFieldFromName(vectorFieldName)
 	if err != nil {
+		log.Info("CreateSearchPlan failed", zap.Error(err))
 		return nil, err
 	}
 	fieldID := vectorField.FieldID

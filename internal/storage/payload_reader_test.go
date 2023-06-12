@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/apache/arrow/go/v8/parquet/file"
-	"github.com/milvus-io/milvus-proto/go-api/schemapb"
+	"github.com/milvus-io/milvus-proto/go-api/v2/schemapb"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -29,8 +29,8 @@ func (s *ReadDataFromAllRowGroupsSuite) SetupSuite() {
 
 	s.size = 1 << 10
 
-	data := make([]byte, s.size)
-	err = ew.AddByteToPayload(data)
+	data := make([]int8, s.size)
+	err = ew.AddInt8ToPayload(data)
 	s.Require().NoError(err)
 
 	ew.SetEventTimestamp(1, 1)
