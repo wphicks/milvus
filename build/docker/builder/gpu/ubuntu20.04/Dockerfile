@@ -9,10 +9,10 @@
 # is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
 # or implied. See the License for the specific language governing permissions and limitations under the License.
 
-FROM nvidia/cuda:11.6.0-devel-ubuntu20.04
+FROM nvidia/cuda:11.8.0-devel-ubuntu20.04
 
 RUN apt-get update && apt-get install -y --no-install-recommends wget curl ca-certificates gnupg2 && \
-    wget -qO- "https://cmake.org/files/v3.24/cmake-3.24.0-linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C /usr/local && \
+    wget -qO- "https://cmake.org/files/v3.26/cmake-3.26.4-linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C /usr/local && \
     apt-get update && apt-get install -y --no-install-recommends \
     g++ gcc gfortran git make ccache libssl-dev zlib1g-dev unzip \
     clang-format-10 clang-tidy-10 lcov libtool m4 autoconf automake python3 python3-pip \
