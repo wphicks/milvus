@@ -11,8 +11,8 @@
 
 FROM nvidia/cuda:11.8.0-devel-ubuntu20.04
 
-RUN apt-get update && apt-get install -y --no-install-recommends wget curl ca-certificates gnupg2 && \
-    wget -qO- "https://cmake.org/files/v3.24/cmake-3.24.0-linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C /usr/local && \
+RUN apt-get clean && rm /etc/apt/sources.list.d/cuda.list && apt-get update && apt-get install -y --no-install-recommends wget curl ca-certificates gnupg2 && \
+    wget -qO- "https://cmake.org/files/v3.26/cmake-3.26.4-linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C /usr/local && \
     apt-get update && apt-get install -y --no-install-recommends \
     g++ gcc gfortran git make ccache libssl-dev zlib1g-dev unzip \
     clang-format-10 clang-tidy-10 lcov libtool m4 autoconf automake python3 python3-pip \
@@ -66,8 +66,6 @@ RUN mkdir -p /home/milvus/.vscode-server/extensions \
     && chmod -R 777 /home/milvus
 
 COPY --chown=0:0 build/docker/builder/entrypoint.sh /
-
-RUN ls -la /entrypoint.sh
 
 RUN wget -qO- "https://github.com/jeffoverflow/autouseradd/releases/download/1.2.0/autouseradd-1.2.0-amd64.tar.gz" | tar xz -C / --strip-components 1
 
