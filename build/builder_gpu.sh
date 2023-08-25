@@ -32,10 +32,11 @@ gid=$(id -g)
 [ "$uid" -lt 500 ] && uid=501
 [ "$gid" -lt 500 ] && gid=$uid
 
-mkdir -p "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/amd64-${OS_NAME}-ccache"
-mkdir -p "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/amd64-${OS_NAME}-go-mod"
-mkdir -p "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/amd64-${OS_NAME}-vscode-extensions"
-mkdir -p "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/amd64-${OS_NAME}-conan"
+chmod -R 777 "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}"
+mkdir -p "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${OS_NAME}-ccache"
+mkdir -p "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${OS_NAME}-go-mod"
+mkdir -p "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${OS_NAME}-vscode-extensions"
+mkdir -p "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${OS_NAME}-conan"
 chmod -R 777 "${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}"
 
 docker-compose pull --ignore-pull-failures gpubuilder
