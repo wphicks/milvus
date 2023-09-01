@@ -65,6 +65,7 @@ class MilvusConan(ConanFile):
         "arrow:with_zstd": True,
         "arrow:shared": False,
         "arrow:with_boost": True,
+        "arrow:with_thrift": True,
         "arrow:with_jemalloc": True,
         "aws-sdk-cpp:text-to-speech": False,
         "aws-sdk-cpp:transfer": False,
