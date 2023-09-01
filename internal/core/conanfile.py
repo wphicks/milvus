@@ -5,7 +5,6 @@ class MilvusConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     requires = (
         "rocksdb/6.29.5",
-        "boost/1.82.0",
         "onetbb/2021.7.0",
         "nlohmann_json/3.11.2",
         "zstd/1.5.4",
@@ -92,6 +91,7 @@ class MilvusConan(ConanFile):
             self.options["openblas"].dynamic_arch = False
 
     def requirements(self):
+        self.requires('boost/1.82.0', override=True)
         if self.settings.os != "Macos":
             # MacOS does not need openblas
             self.requires("openblas/0.3.23@milvus/dev")
