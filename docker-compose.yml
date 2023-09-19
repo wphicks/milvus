@@ -69,10 +69,10 @@ services:
       AZURE_STORAGE_CONNECTION_STRING: ${AZURITE_CONNECTION_STRING}
     volumes: &builder-volumes-gpu
       - .:/go/src/github.com/milvus-io/milvus:delegated
-      - ${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${OS_NAME}-ccache:/ccache:delegated
-      - ${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${OS_NAME}-go-mod:/go/pkg/mod:delegated
-      - ${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${OS_NAME}-vscode-extensions:/home/milvus/.vscode-server/extensions:delegated
-      - ${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${OS_NAME}-conan:/home/milvus/.conan:delegated
+      - ${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${IMAGE_ARCH}-${OS_NAME}-ccache:/ccache:delegated
+      - ${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${IMAGE_ARCH}-${OS_NAME}-go-mod:/go/pkg/mod:delegated
+      - ${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${IMAGE_ARCH}-${OS_NAME}-vscode-extensions:/home/milvus/.vscode-server/extensions:delegated
+      - ${DOCKER_VOLUME_DIRECTORY:-.docker-gpu}/${IMAGE_ARCH}-${OS_NAME}-conan:/home/milvus/.conan:delegated
     working_dir: '/go/src/github.com/milvus-io/milvus'
     depends_on:
       - etcd
