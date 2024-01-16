@@ -34,6 +34,10 @@ func (c *cagraChecker) CheckTrain(params map[string]string) error {
 	if graphDegreeExist && interDegreeExist && interDegree < graphDegree {
 		return fmt.Errorf("Graph degree cannot be larger than intermediate graph degree")
 	}
+	buildAlgoStr, buildAlgoExist := params[CagraBuildAlgo]
+        if buildAlgoExist && buildAlgoStr != "NN_DESCENT" && buildAlgoStr != "IVF_PQ" {
+            return fmt.Errorf("invalid cagra build algo: %s", buildAlgoStr)
+        }
 
 	if !CheckStrByValues(params, Metric, CagraMetrics) {
 		return fmt.Errorf("metric type not found or not supported, supported: %v", CagraMetrics)

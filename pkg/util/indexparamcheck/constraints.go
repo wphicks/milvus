@@ -40,6 +40,7 @@ const (
 	// Cagra Train Param
 	CagraInterDegree = "intermediate_graph_degree"
 	CagraGraphDegree = "graph_degree"
+        CagraBuildAlgo = "build_algo"
 )
 
 // METRICS is a set of all metrics types supported for float vector.
